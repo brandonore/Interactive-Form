@@ -49,6 +49,9 @@ $('#name').focus();
 // Set placeholder text for the 'other' job role input field
 $('#other-title').attr('placeholder', 'Your Job Role').css('display', 'none');
 
+// Hide tshirt color dropdown box
+$('#colors-js-puns').css('display', 'none');
+
 // Hide the total amount h3 element
 $('#final-total').css('display', 'none');
 
@@ -88,8 +91,10 @@ $('select[name="user_title"]').change(function(){
 // Show appropriate color category based on selected choice in 'design' dropdown menu
 $('select[name="user_design"]').change(function(){
   if($(this).val() == "js puns") {
+    $('#colors-js-puns').css('display', 'block');
     $('select[id="color"]').html(jsPuns);
   } else if ($(this).val() == "heart js") {
+    $('#colors-js-puns').css('display', 'block');
     $('select[id="color"]').html(jsHeart);
     // reset to default if 'Select theme' is selected again
   } else if ($(this).val() == "select theme") {
