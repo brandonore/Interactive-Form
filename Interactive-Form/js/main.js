@@ -125,12 +125,10 @@ $(jsFrameworks).click(function(){
       totalCost += 100;
       $('#final-total').text('Total: $' + totalCost);
       $(express).prop('disabled', true).parent().css('opacity', '0.5');
-      console.log('js-frameworks is checked');
     } else if (!$(this).is(':checked')) {
       totalCost -= 100;
       $('#final-total').text('Total: $' + totalCost);
       $(express).prop('disabled', false).parent().css('opacity', '1');
-      console.log('js-frameworks is unchecked');
     }
 });
 
@@ -140,12 +138,10 @@ $(express).click(function(){
       totalCost += 100;
       $('#final-total').text('Total: $' + totalCost);
       $(jsFrameworks).prop('disabled', true).parent().css('opacity', '0.5');
-      console.log('js-frameworks is checked');
     } else if (!$(this).is(':checked')) {
       totalCost -= 100;
       $('#final-total').text('Total: $' + totalCost);
       $(jsFrameworks).prop('disabled', false).parent().css('opacity', '1');
-      console.log('js-frameworks is unchecked');
     }
 });
 
@@ -155,12 +151,10 @@ $(jsLibs).click(function(){
       totalCost += 100;
       $('#final-total').text('Total: $' + totalCost);
       $(node).prop('disabled', true).parent().css('opacity', '0.5');
-      console.log('js-frameworks is checked');
     } else if (!$(this).is(':checked')) {
       totalCost -= 100;
       $('#final-total').text('Total: $' + totalCost);
       $(node).prop('disabled', false).parent().css('opacity', '1');
-      console.log('js-frameworks is unchecked');
     }
 });
 
@@ -170,12 +164,10 @@ $(node).click(function(){
       totalCost += 100;
       $('#final-total').text('Total: $' + totalCost);
       $(jsLibs).prop('disabled', true).parent().css('opacity', '0.5');
-      console.log('js-frameworks is checked');
     } else if (!$(this).is(':checked')) {
       totalCost -= 100;
       $('#final-total').text('Total: $' + totalCost);
       $(jsLibs).prop('disabled', false).parent().css('opacity', '1');
-      console.log('js-frameworks is unchecked');
     }
 });
 
