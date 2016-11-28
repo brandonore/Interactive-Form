@@ -96,8 +96,9 @@ $('select[name="user_design"]').change(function(){
   } else if ($(this).val() == "heart js") {
     $('#colors-js-puns').css('display', 'block');
     $('select[id="color"]').html(jsHeart);
-    // reset to default if 'Select theme' is selected again
+    // reset to default if 'Select theme' is selected again, hide the color menu
   } else if ($(this).val() == "select theme") {
+    $('#colors-js-puns').css('display', 'none');
     $('select[id="color"]').html(themeSelect);
   }
 });
@@ -115,7 +116,7 @@ $(all).click(function(){
     $('#final-total').css('display', 'block').text('Total: $' + totalCost);
   } else if (!$(this).is(':checked')) {
     totalCost -= 200;
-    $('#final-total').css('display', 'none');
+    $('#final-total').text('Total: $' + totalCost);
   }
 });
 
@@ -123,7 +124,7 @@ $(all).click(function(){
 $(jsFrameworks).click(function(){
     if($(this).is(':checked')) {
       totalCost += 100;
-      $('#final-total').text('Total: $' + totalCost);
+      $('#final-total').css('display', 'block').text('Total: $' + totalCost);
       $(express).prop('disabled', true).parent().css('opacity', '0.5');
     } else if (!$(this).is(':checked')) {
       totalCost -= 100;
@@ -136,7 +137,7 @@ $(jsFrameworks).click(function(){
 $(express).click(function(){
     if($(this).is(':checked')) {
       totalCost += 100;
-      $('#final-total').text('Total: $' + totalCost);
+      $('#final-total').css('display', 'block').text('Total: $' + totalCost);
       $(jsFrameworks).prop('disabled', true).parent().css('opacity', '0.5');
     } else if (!$(this).is(':checked')) {
       totalCost -= 100;
@@ -149,7 +150,7 @@ $(express).click(function(){
 $(jsLibs).click(function(){
     if($(this).is(':checked')) {
       totalCost += 100;
-      $('#final-total').text('Total: $' + totalCost);
+      $('#final-total').css('display', 'block').text('Total: $' + totalCost);
       $(node).prop('disabled', true).parent().css('opacity', '0.5');
     } else if (!$(this).is(':checked')) {
       totalCost -= 100;
@@ -162,7 +163,7 @@ $(jsLibs).click(function(){
 $(node).click(function(){
     if($(this).is(':checked')) {
       totalCost += 100;
-      $('#final-total').text('Total: $' + totalCost);
+      $('#final-total').css('display', 'block').text('Total: $' + totalCost);
       $(jsLibs).prop('disabled', true).parent().css('opacity', '0.5');
     } else if (!$(this).is(':checked')) {
       totalCost -= 100;
@@ -175,7 +176,7 @@ $(node).click(function(){
 $(buildTools).click(function(){
   if($(this).is(':checked')) {
     totalCost += 100;
-    $('#final-total').text('Total: $' + totalCost);
+    $('#final-total').css('display', 'block').text('Total: $' + totalCost);
   } else if (!$(this).is(':checked')) {
     totalCost -= 100;
     $('#final-total').text('Total: $' + totalCost);
@@ -186,7 +187,7 @@ $(buildTools).click(function(){
 $(npm).click(function(){
   if($(this).is(':checked')) {
     totalCost += 100;
-    $('#final-total').text('Total: $' + totalCost);
+    $('#final-total').css('display', 'block').text('Total: $' + totalCost);
   } else if (!$(this).is(':checked')) {
     totalCost -= 100;
     $('#final-total').text('Total: $' + totalCost);
