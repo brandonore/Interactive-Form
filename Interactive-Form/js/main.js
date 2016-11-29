@@ -31,6 +31,63 @@ var bitcoin = 'div p:contains("Bitcoin")';
 // Set pattern variable for email verification
 var pattern = /^([\w-\.]+@([\w-]+\.)+[\w-]{2,4})?$/;
 
+/*
+|--------------------------------------------------------------------------
+| Functions
+|--------------------------------------------------------------------------
+*/
+
+// Function for if the main conference is checked/unchecked
+function mainConfChecked (main) {
+  $(main).click(function(){
+    if($(this).is(':checked')) {
+      totalCost += 200;
+      $('#final-total').css('display', 'block').text('Total: $' + totalCost);
+    } else if (!$(this).is(':checked')) {
+      totalCost -= 200;
+      $('#final-total').text('Total: $' + totalCost);
+    }
+  });
+}
+
+// Define function for disabling/enabling activity checkboxes
+function toggleActivities (isChecked, disable) {
+  $(isChecked).click(function(){
+      if($(this).is(':checked')) {
+        totalCost += 100;
+        $('#final-total').css('display', 'block').text('Total: $' + totalCost);
+        $(disable).prop('disabled', true).parent().css('opacity', '0.5');
+      } else if (!$(this).is(':checked')) {
+        totalCost -= 100;
+        $('#final-total').text('Total: $' + totalCost);
+        $(disable).prop('disabled', false).parent().css('opacity', '1');
+      }
+  });
+}
+
+// Define function to check if either of the two workshops on Wednesday have been checked
+function wedWorkshops (workshop) {
+  $(workshop).click(function(){
+    if($(this).is(':checked')) {
+      totalCost += 100;
+      $('#final-total').css('display', 'block').text('Total: $' + totalCost);
+    } else if (!$(this).is(':checked')) {
+      totalCost -= 100;
+      $('#final-total').text('Total: $' + totalCost);
+    }
+  });
+}
+
+// Define function to change payment type based on a value selected from the dropdown menu
+function changePaymentType (value, selected) {
+  $('select[name="user_payment"]').change(function(){
+    if($(this).val() === value) {
+      $(selected).css('display', 'block');
+    } else {
+      $(selected).css('display', 'none');
+    }
+  });
+}
 
 /*
 |--------------------------------------------------------------------------
@@ -109,90 +166,18 @@ $('select[name="user_design"]').change(function(){
 |--------------------------------------------------------------------------
 */
 
-// Add $200 for main conference click
-$(all).click(function(){
-  if($(this).is(':checked')) {
-    totalCost += 200;
-    $('#final-total').css('display', 'block').text('Total: $' + totalCost);
-  } else if (!$(this).is(':checked')) {
-    totalCost -= 200;
-    $('#final-total').text('Total: $' + totalCost);
-  }
-});
+// Call mainConfChecked function
+mainConfChecked(all); // Checks to see if main conference activity is checked, adds or subtracts $200 from totalCost
 
-// Disable express workshop if js frameworks is selected
-$(jsFrameworks).click(function(){
-    if($(this).is(':checked')) {
-      totalCost += 100;
-      $('#final-total').css('display', 'block').text('Total: $' + totalCost);
-      $(express).prop('disabled', true).parent().css('opacity', '0.5');
-    } else if (!$(this).is(':checked')) {
-      totalCost -= 100;
-      $('#final-total').text('Total: $' + totalCost);
-      $(express).prop('disabled', false).parent().css('opacity', '1');
-    }
-});
+// Call toggleActivities function
+toggleActivities(jsFrameworks, express); // If jsFrameworks is checked, disable express workshop etc...
+toggleActivities(express, jsFrameworks);
+toggleActivities(jsLibs, node);
+toggleActivities(node, jsLibs);
 
-// Disable js frameworks workshop if express is selected
-$(express).click(function(){
-    if($(this).is(':checked')) {
-      totalCost += 100;
-      $('#final-total').css('display', 'block').text('Total: $' + totalCost);
-      $(jsFrameworks).prop('disabled', true).parent().css('opacity', '0.5');
-    } else if (!$(this).is(':checked')) {
-      totalCost -= 100;
-      $('#final-total').text('Total: $' + totalCost);
-      $(jsFrameworks).prop('disabled', false).parent().css('opacity', '1');
-    }
-});
-
-// Disable node workshop if js libraries is selected
-$(jsLibs).click(function(){
-    if($(this).is(':checked')) {
-      totalCost += 100;
-      $('#final-total').css('display', 'block').text('Total: $' + totalCost);
-      $(node).prop('disabled', true).parent().css('opacity', '0.5');
-    } else if (!$(this).is(':checked')) {
-      totalCost -= 100;
-      $('#final-total').text('Total: $' + totalCost);
-      $(node).prop('disabled', false).parent().css('opacity', '1');
-    }
-});
-
-// Disable js libraries workshop if node is selected
-$(node).click(function(){
-    if($(this).is(':checked')) {
-      totalCost += 100;
-      $('#final-total').css('display', 'block').text('Total: $' + totalCost);
-      $(jsLibs).prop('disabled', true).parent().css('opacity', '0.5');
-    } else if (!$(this).is(':checked')) {
-      totalCost -= 100;
-      $('#final-total').text('Total: $' + totalCost);
-      $(jsLibs).prop('disabled', false).parent().css('opacity', '1');
-    }
-});
-
-// Add or Subtract $100 if build tools workshop is selected
-$(buildTools).click(function(){
-  if($(this).is(':checked')) {
-    totalCost += 100;
-    $('#final-total').css('display', 'block').text('Total: $' + totalCost);
-  } else if (!$(this).is(':checked')) {
-    totalCost -= 100;
-    $('#final-total').text('Total: $' + totalCost);
-  }
-});
-
-// Add or Subtract $100 if npm workshop is selected
-$(npm).click(function(){
-  if($(this).is(':checked')) {
-    totalCost += 100;
-    $('#final-total').css('display', 'block').text('Total: $' + totalCost);
-  } else if (!$(this).is(':checked')) {
-    totalCost -= 100;
-    $('#final-total').text('Total: $' + totalCost);
-  }
-});
+// Call wedWorkshops function
+wedWorkshops(buildTools); // If one of the Wednesday workshops is checked, or both, add $100 to totalCost
+wedWorkshops(npm);
 
 /*
 |--------------------------------------------------------------------------
@@ -200,39 +185,10 @@ $(npm).click(function(){
 |--------------------------------------------------------------------------
 */
 
-// If user selects 'credit card',
-$('select[name="user_payment"]').change(function(){
-  if($(this).val() == "credit card") {
-      // display credit card field
-    $('#credit-card').css('display', 'block');
-    $('#cc-num').focus();
-  } else {
-    // otherwise, hide the fields
-    $('#credit-card').css('display', 'none');
-  }
-});
-
-// If user selects 'paypal',
-$('select[name="user_payment"]').change(function(){
-  if($(this).val() == "paypal") {
-    // display paypal text
-    $(paypal).css('display', 'block');
-  } else {
-    // otherwise hide paypal text
-    $(paypal).css('display', 'none');
-  }
-});
-
-// If user selects 'bitcoin'
-$('select[name="user_payment"]').change(function(){
-  if($(this).val() == "bitcoin") {
-    // display bitcoin text
-    $(bitcoin).css('display', 'block');
-  } else {
-    // otherwise hide bitcoin text
-    $(bitcoin).css('display', 'none');
-  }
-});
+// Call changePaymentType function (value slected, id/div p:contains)
+changePaymentType('credit card', '#credit-card'); // Change payment type based on the value selected from the dropdown and hide the others
+changePaymentType('paypal', paypal);
+changePaymentType('bitcoin', bitcoin);
 
 /*
 |--------------------------------------------------------------------------
